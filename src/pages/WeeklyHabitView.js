@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { habitStatusToggle } from "../features/habit/habitSlice";
 import moment from "moment";
+import "../styles/WeeklyHabitView.css";
 
 const WeeklyHabitView = () => {
   const habits = useSelector((state) => state.habits);
@@ -32,29 +33,37 @@ const WeeklyHabitView = () => {
     console.log(e.target.textContent);
   };
   return (
-    <div>
+    <div className="week-habit-container">
+      <h1>Weekly-View</h1>
       <ul className="weekly-habit-list">
         {habits.map((habit) => {
           return (
             <li key={habit.id}>
               <div>{habit.content}</div>
-              <div>Today</div>
-              <div>{habit.date}</div>
-              <div
-                onClick={() => {
-                  toggleStatus(habit.id);
-                }}
-              >
-                {habit.status}
+              <div>
+                Today
+                <div>
+                  {habit.date}
+                  <div
+                    className="status"
+                    onClick={() => {
+                      toggleStatus(habit.id);
+                    }}
+                  >
+                    {habit.status}
+                  </div>
+                </div>
               </div>
-
+              <div className="pre-heading">Pervious-Days :</div>
               <div className="previous-days">
                 {getPreviousDays(habit.date).map((d) => {
                   return (
-                    <>
+                    <div>
                       <div>{d}</div>
-                      <div onClick={toggleWeekDays}>none</div>
-                    </>
+                      <div onClick={toggleWeekDays} className="status">
+                        none
+                      </div>
+                    </div>
                   );
                 })}
               </div>
